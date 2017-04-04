@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require jquery.atwho
+ *= require_self
+ *= require jquery-ui
+ *= require font-awesome
+ *= require bootstrap/glyphicons
+ *= require bootstrap/bootstrap.min
+ *= require bootstrap/pages.min
+ *= require bootstrap/pixel-admin.min
+ *= require bootstrap/rtl.min
+ *= require bootstrap/themes.min
+ *= require bootstrap/widgets.min
+
+
+ *=require codemirror.min
+ *=require bootstrap/blackboard.min
+ *=require bootstrap/monokai.min
+ */
+
+
+html {
+    margin: 0px;
+    height: 100vh;
+    width: 100%;
+}
+
+body {
+    margin: 0px;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.cover{
+    margin: 0px;
+    min-height: 100vh;
+}
+
+#wrapper{
+    background: url('bg3.jpg') no-repeat   center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/*@font-face {*/
+    /*font-family: 'Glyphicons Halflings';*/
+    /*src: url('glyphicons-halflings-regular.eot');*/
+    /*src: url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),*/
+    /*url('glyphicons-halflings-regular.woff') format('woff'),*/
+    /*url('glyphicons-halflings-regular.ttf') format('truetype'),*/
+    /*url('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');*/
+/*}*/
+ul.ui-autocomplete {
+    z-index: 1100;
+}

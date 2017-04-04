@@ -1,0 +1,44 @@
+<div class="tl-entry">
+  <div class="tl-time">
+    <%= time_ago_in_words event.created_at %>
+  </div>
+  <% if event.msg.include?('liked') %>
+      <div class="tl-icon bg-danger"><i class="fa fa-heart"></i></div>
+  <% elsif event.msg.include?('posted') %>
+      <div class="tl-icon bg-warning"><i class="fa fa-envelope"></i></div>
+  <% elsif event.msg.include?('followed') %>
+      <div class="tl-icon bg-success"><i class="fa fa-check"></i></div>
+  <% elsif event.msg.include?('commented') %>
+      <div class="tl-icon bg-info"><i class="fa fa-comment"></i></div>
+  <% elsif event.msg.include?('mentioned') %>
+      <div class="tl-icon bg-pa-purple"><i class="fa fa-check"></i></div>
+  <% end %>
+  <div class="panel tl-body">
+    <h4 class="text-bold"><strong><%= link_to event.user.name, user_url(event.user) %></strong>: <%= event.msg %> <strong><%= link_to_event event %></strong></h4>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  </div> <!-- / .tl-body -->
+</div> <!-- / .tl-entry -->
+
+<!--<div class="tl-entry">-->
+  <!--<div class="tl-time">-->
+    <!--1h ago-->
+  <!--</div>-->
+  <!--<div class="tl-icon bg-warning"><i class="fa fa-envelope"></i></div>-->
+  <!--<div class="panel tl-body">-->
+    <!--<h4 class="text-warning">Lorem ipsum dolor sit amet</h4>-->
+    <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+  <!--</div> &lt;!&ndash; / .tl-body &ndash;&gt;-->
+<!--</div> &lt;!&ndash; / .tl-entry &ndash;&gt;-->
+<!--<div class="tl-entry left">-->
+  <!--<div class="tl-time">-->
+    <!--2h ago-->
+  <!--</div>-->
+  <!--<div class="tl-icon bg-success"><i class="fa fa-picture-o"></i></div>-->
+  <!--<div class="panel tl-body">-->
+    <!--<a href="#">Denise Steiner</a> shared an image on <a href="#">The Gallery</a>-->
+    <!--<div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">-->
+      <!--<img src="<%= image_path 'signin-bg-5.jpg' %>" alt="" style="max-height: 150px;max-width: 100%;">-->
+    <!--</div>-->
+    <!--<i class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</i>-->
+  <!--</div> &lt;!&ndash; / .tl-body &ndash;&gt;-->
+<!--</div> &lt;!&ndash; / .tl-entry &ndash;&gt;-->

@@ -1,0 +1,87 @@
+<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+  <!-- Main menu toggle -->
+
+  <div class="navbar-inner">
+    <!-- Main navbar header -->
+    <div class="navbar-header">
+
+      <!-- Logo -->
+      <a href="<%= root_url %>" class="navbar-brand">
+        <div><img alt="Pixel Admin" src="<%= image_path 'main-navbar-logo.png' %>"></div>
+        μBlogger
+      </a>
+
+      <!-- Main navbar toggle -->
+
+
+    </div> <!-- / .navbar-header -->
+
+    <div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+      <div>
+        <ul class="nav navbar-nav">
+
+          <!--<li class="dropdown">-->
+            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>-->
+            <!--<ul class="dropdown-menu">-->
+              <!--<li><a href="#">First item</a></li>-->
+              <!--<li><a href="#">Second item</a></li>-->
+              <!--<li class="divider"></li>-->
+              <!--<li><a href="#">Third item</a></li>-->
+            <!--</ul>-->
+          <!--</li>-->
+        </ul> <!-- / .navbar-nav -->
+
+
+        <div class="right clearfix">
+          <ul class="nav navbar-nav pull-right right-navbar-nav">
+
+            <!-- 3. $NAVBAR_ICON_BUTTONS =======================================================================
+
+                          Navbar Icon Buttons
+
+                          NOTE: .nav-icon-btn triggers a dropdown menu on desktop screens only. On small screens .nav-icon-btn acts like a hyperlink.
+
+                          Classes:
+                          * 'nav-icon-btn-info'
+                          * 'nav-icon-btn-success'
+                          * 'nav-icon-btn-warning'
+                          * 'nav-icon-btn-danger'
+
+            -->
+
+            <li class="centre">
+
+              <%= form_tag users_path, method: :get, class: 'navbar-form pull-left' do %>
+                <%= text_field_tag :name, "", class: 'form-control', placeholder: 'Search' %>
+              <% end %>
+
+            </li>
+
+
+            <li>
+              <%= link_to 'Home', root_url %>
+            </li>
+            <li>
+              <%= link_to 'Users', users_path %>
+            </li>
+            <li>
+              <%= link_to 'About', about_url %>
+            </li>
+            <li>
+              <%= link_to 'Help', help_url %>
+            </li>
+            <li>
+              <%= link_to 'Sign In', login_url %>
+            </li>
+            <li>
+              <%= link_to 'Sign Up', signup_url %>
+            </li>
+
+
+          </ul> <!-- / .navbar-nav -->
+        </div> <!-- / .right -->
+      </div>
+    </div> <!-- / #main-navbar-collapse -->
+  </div> <!-- / .navbar-inner -->
+</div> <!-- / #main-navbar -->
+<!-- /2. $END_MAIN_NAVIGATION -->

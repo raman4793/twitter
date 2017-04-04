@@ -1,0 +1,31 @@
+<%= form_for conversation do |f| %>
+    <%= f.hidden_field :sender_id, value: current_user.id %>
+    <%= f.text_field :recipient_name, data: {autocomplete_source: names_path} %>
+    <%= f.submit class:'btn btn-primary chat-controls-btn' %>
+<% end %>
+
+<script>
+  jQuery(function () {
+    $("#conversation_recipient_name").autocomplete({
+      source: function(request, response) {
+        $.ajax({
+          url: "<%= names_path %>",
+          dataType: "json",
+          data: {term: request.term},
+          success: function(data) {
+              response(data);
+          }
+        });
+      },
+      minLength: 2,
+      select: function(event, ui) {
+        console.log(ui.item ?
+        "Selected: " + ui.item.label :
+        "Nothing selected, input was " + this.value);
+      }
+    });
+
+  })
+</script>
+
+

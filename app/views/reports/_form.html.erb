@@ -1,0 +1,7 @@
+<%= form_for report, remote: true do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :reported_id, value: report.reported_id %>
+    <%= f.label :reason %>
+    <%= f.text_field :reason, class: 'form-control' %>
+    <%= f.submit class: 'btn btn-primary' %>
+<% end %>

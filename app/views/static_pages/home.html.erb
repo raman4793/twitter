@@ -1,0 +1,85 @@
+<% if logged_in? %>
+    <div id="content-wrapper">
+      <!-- 5. $PROFILE ===================================================================================
+
+          Profile
+      -->
+      <div class="profile-full-name">
+
+      </div>
+      <div class="profile-row">
+        <div class="col-md-3">
+          <%= render 'layouts/side_right', user: current_user %>
+        </div>
+        <div class="col-md-6">
+
+          <hr class="profile-content-hr no-grid-gutter-h">
+
+          <div class="profile-content">
+
+            <ul id="profile-tabs" class="nav nav-tabs">
+              <li class="active">
+                <a href="#profile-tabs-board" data-toggle="tab">My μBlog Feed</a>
+              </li>
+            </ul>
+
+            <div class="tab-content tab-content-bordered panel-padding">
+              <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
+
+                <div class="panel">
+                  <%= render 'microposts/micropost_form', micropost: current_user.microposts.build %>
+                </div>
+
+                <hr class="no-panel-padding-h panel-wide">
+
+                <div id="posts">
+                  <% @feed_items.try(:each) do |feed| %>
+                      <%= render feed %>
+                  <% end %>
+                  <%= will_paginate @feed_items %>
+                </div>
+
+              </div> <!-- / .tab-pane -->
+
+            </div> <!-- / .tab-content -->
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <%= render 'layouts/side_left', user: current_user %>
+        </div>
+      </div>
+
+
+    </div> <!-- / #content-wrapper -->
+
+<% else %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="panel panel-transparent">
+            <div class="panel-heading">
+              <h2 style="color: #9effff">Top Posts!!</h2>
+            </div>
+            <div class="panel-body">
+              <div class="">
+                <% Micropost.popular.first(9).try(:each) do |post| %>
+                    <div class="panel">
+                      <div class="panel-heading"></div>
+                      <div class="panel-body">
+                        <div style="min-height: 150px">
+                          <%= render post %>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <%= render 'layouts/side_left' %>
+        </div>
+      </div>
+    </div>
+<% end %>

@@ -1,0 +1,7 @@
+<%= form_for block, remote: true do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :blocked_id, value: block.blocked_id %>
+    <%= f.label :reason %>
+    <%= f.text_field :reason, class: 'form-control' %>
+    <%= f.submit class: 'btn btn-primary' %>
+<% end %>

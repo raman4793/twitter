@@ -1,0 +1,111 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <div class="compose-btn">
+        <a id="modal-705473" href="#modal-container-705473" href="#" class="btn btn-primary btn-labeled btn-block" data-toggle="modal"><i class="btn-label fa fa-pencil-square-o"></i>New Conversation</a>
+      </div>
+    </div>
+  </div>
+</div><br>
+<div class="">
+  <div id="conversations">
+    <div id="conversation-list">
+      <div class="left-col">
+        <!-- 8. $MESSAGES_LIST_ALT =========================================================================
+
+    Alt messages list
+-->
+        <div class="panel widget-messages-alt" id="scrollable-conversations">
+          <div class="panel-heading">
+            <span class="panel-title"><i class="panel-title-icon fa fa-envelope"></i>Your Conversations</span>
+          </div> <!-- / .panel-heading -->
+          <div class="panel-body padding-sm">
+            <div class="messages-list">
+
+              <% current_user.get_conversations.try(:each) do |conversation| %>
+                <% if conversation.sender == current_user %>
+                      <%= render conversation, user: conversation.recipient %>
+                <% else %>
+                      <%= render conversation, user: conversation.sender %>
+                <% end %>
+              <% end %>
+
+
+            </div> <!-- / .messages-list -->
+          </div> <!-- / .panel-body -->
+        </div> <!-- / .panel -->
+        <!-- /8. $MESSAGES_LIST_ALT -->
+      </div>
+
+      <div class="right-col">
+        <!-- 12. $CHAT =====================================================================================
+
+				Chat
+-->
+        <!-- Javascript -->
+        <script>
+          init.push(function () {
+            $(".chat-controls-input .form-control").autosize();
+          });
+        </script>
+        <!-- / Javascript -->
+
+        <div class="panel widget-chat">
+          <div class="panel-heading">
+            <span class="panel-title"><i class="panel-title-icon fa fa-comments-o"></i>Chat</span>
+          </div> <!-- / .panel-heading -->
+          <div class="panel-body" id="scrollable-messages">
+
+            <div id="messages-list">
+
+            </div>
+
+          </div> <!-- / .panel-body -->
+          <div id="send-message-form">
+
+          </div><!-- / .panel-footer -->
+        </div> <!-- / .panel -->
+        <!-- /12. $CHAT -->
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script type="application/javascript">
+  $('#scrollable-conversations').slimScroll({ height: 450 });
+</script>
+
+<script type="application/javascript">
+  $('#scrollable-messages').slimScroll({ height: 405 });
+</script>
+
+<div class="modal fade" id="modal-container-705473" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Create New Conversation
+        </h4>
+      </div>
+      <div class="modal-body">
+        <%= render 'conversations/form', conversation: current_user.conversations.build %>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script type="application/javascript">
+  $('#new_conversation').onsubmit = function () {
+    alert('Created');
+    $('#modal-container-705473').modal('toggle');
+  }
+</script>

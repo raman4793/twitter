@@ -1,0 +1,58 @@
+<% provide(:title, 'All users') %>
+<!--<h1>All users</h1>-->
+<!--<%= will_paginate %>-->
+<!--<ul class="users">-->
+  <!--<% @users.each do |user| %>-->
+      <!--<li>-->
+        <!--<%= gravatar_for user, size: 50 %>-->
+        <!--<%= link_to user.name, user %>-->
+        <!--<% if current_user %>-->
+            <!--<% if current_user.admin? && !current_user?(user) %>-->
+                | <%= link_to "delete", user, method: :delete,
+                              data: { confirm: "You sure?" } %>
+            <!--<% end %>-->
+        <!--<% end %>-->
+      <!--</li>-->
+  <!--<% end %>-->
+<!--</ul>-->
+<!--<%= will_paginate %>-->
+
+<div class="well transparent">
+  <!-- 18. $FOLLOWERS ================================================================================
+
+				Followers
+-->
+  <div class="panel widget-followers">
+    <div class="panel-heading">
+      <span class="panel-title"><i class="panel-title-icon fa fa-smile-o"></i>Users</span>
+      <div class="panel-heading-controls">
+          <%= will_paginate %>
+      </div> <!-- / .panel-heading-controls -->
+    </div> <!-- / .panel-heading -->
+
+    <div class="panel-body">
+
+
+
+      <% @users.each do |user| %>
+          <div class="follower">
+            <img src="<%= image_path user.dp.small %>" alt="" class="follower-avatar">
+            <div class="body">
+              <div class="follower-controls">
+                <% if current_user %>
+                  <%= render 'follow_form', user: user %>
+                <% end %>
+              </div>
+              <a href="<%= user_url(user) %>" class="follower-name"><%= user.name %></a><br>
+              <a href="<%= user_url(user) %>" class="follower-username">@<%= user.uname %></a>
+            </div>
+          </div>
+      <% end %>
+      <%= will_paginate %>
+
+
+    </div> <!-- / .panel-body -->
+  </div> <!-- / .panel -->
+  <!-- /18. $FOLLOWERS -->
+</div>
+

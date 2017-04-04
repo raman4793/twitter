@@ -1,0 +1,3 @@
+class UserLogin < ApplicationRecord
+  belongs_to :user
+end

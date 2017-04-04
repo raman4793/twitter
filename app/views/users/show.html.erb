@@ -1,0 +1,139 @@
+<% provide(:title, @user.name) %>
+<br><br>
+<div id="content-wrapper">
+  <!-- 5. $PROFILE ===================================================================================
+
+      Profile
+  -->
+  <div class="profile-row">
+    <div class="col-md-3">
+      <%= render 'layouts/side_right', user: @user %>
+    </div>
+
+
+    <div class="col-md-6">
+
+      <hr class="profile-content-hr no-grid-gutter-h">
+
+      <div class="profile-content">
+
+        <div class="panel post-form">
+          <% if @user==current_user %>
+              <div style="">
+                <%= render 'microposts/micropost_form', micropost: current_user.microposts.build %>
+              </div>
+          <% end %>
+        </div>
+
+        <ul id="profile-tabs" class="nav nav-tabs">
+          <li class="active">
+            <a href="#profile-tabs-board" data-toggle="tab">My μBlogs</a>
+          </li>
+          <li>
+            <a href="#profile-tabs-activity" data-toggle="tab">Timeline</a>
+          </li>
+          <li>
+            <a href="#profile-tabs-followers" data-toggle="tab">Followers</a>
+          </li>
+          <li>
+            <a href="#profile-tabs-following" data-toggle="tab">Following</a>
+          </li>
+        </ul>
+        
+        <div class="tab-content tab-content-bordered panel-padding">
+          <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
+            <hr class="no-panel-padding-h panel-wide">
+            <div id="posts">
+              <% @microposts.each do |post| %>
+                <%= render post %><% end %>
+              <%= will_paginate @microposts %>
+            </div>
+
+          </div> <!-- / .tab-pane -->
+
+
+          <div class="tab-pane fade" id="profile-tabs-activity">
+            <div class="timeline">
+              <!-- Timeline header -->
+              <div class="tl-header now">Now</div>
+
+              <% @user.get_events.now.each do |event| %>
+                <%= render 'events/event_details', event: event %>
+              <% end %>
+
+
+
+              <!-- Timeline header -->
+              <div class="tl-header">Yesterday</div>
+
+                <% @user.get_events.yesterday.each do |event| %>
+                    <%= render 'events/event_details', event: event  %>
+                <% end %>
+
+              <div class="tl-header">History</div>
+
+              <% @user.get_events.history.each do |event| %>
+                  <%= render 'events/event_details', event: event  %>
+              <% end %>
+
+            </div> <!-- / .timeline -->
+          </div> <!-- / .tab-pane -->
+
+
+          <div class="tab-pane fade widget-followers" id="profile-tabs-followers">
+
+            <% @user.followers.try(:each) do |follower| %>
+                <div class="follower">
+                  <img src=<%= image_path follower.dp.small %> alt="" class="follower-avatar">
+                  <div class="body">
+                    <% if current_user %>
+                        <div class="follower-controls">
+                            <% if current_user.following?(follower) %>
+                              <a href="#" id="unfollow-<%= follower.id %>" class="btn btn-sm btn-success" data-remote=true><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+                            <% else %>
+                                <a href="#" class="btn btn-sm btn-outline">Follow</a>
+                            <% end %>
+
+                        </div>
+                    <% end %>
+                    <a href="<%= user_path(follower) %>" class="follower-name"><%= follower.name %></a><br>
+                    <a href="#" class="follower-username">@<%= follower.uname %></a>
+                  </div>
+                </div>
+            <% end %>
+
+          </div> <!-- / .tab-pane -->
+          <div class="tab-pane fade widget-followers" id="profile-tabs-following">
+
+            <% @user.following.try(:each) do |follower| %>
+                <div class="follower">
+                  <img src=<%= image_path follower.dp.small %> alt="" class="follower-avatar">
+                  <div class="body">
+                    <% if current_user %>
+                        <div class="follower-controls">
+                          <% if current_user.following?(follower) %>
+                              <a href="#" id="unfollow-<%= follower.id %>" class="btn btn-sm btn-success" data-remote=true><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+                          <% else %>
+                              <a href="#" class="btn btn-sm btn-outline">Follow</a>
+                          <% end %>
+
+                        </div>
+                    <% end %>
+                    <a href="<%= user_path(follower) %>" class="follower-name"><%= follower.name %></a><br>
+                    <a href="#" class="follower-username"><%= follower.uname %></a>
+                  </div>
+                </div>
+            <% end %>
+          </div> <!-- / .tab-pane -->
+        </div> <!-- / .tab-content -->
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <%= render 'layouts/side_left', user: @user %>
+    </div>
+  </div>
+
+
+</div>
+

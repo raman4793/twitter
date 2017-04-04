@@ -1,0 +1,14 @@
+<% id = likeable.likeable.id %>
+<%= form_for (likeable), remote: true do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :likeable_id, value: id %>
+    <%= f.hidden_field :likeable_type, value: likeable.likeable.class.name %>
+    <a id="like-post-<%= id %>"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;<span id="count-<%=id %>"><%= likeable.likeable.get_likes %></span>
+    <script type="application/javascript">
+      $('#like-post-<%=id %>').click(function () {
+        $(this).parent('form').submit();
+        $('#count-<%=id %>').html(<%= likeable.likeable.get_likes %>)
+        $(this).parent().hide();
+      })
+    </script>
+<% end %>

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-9">
+      <div class="panel">
+        <% @posts.each do |post| %>
+            <div class="panel-body  ">
+              <%= render post %>
+
+            </div>
+        <% end %>
+        <%= will_paginate @posts %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <%= render 'layouts/side_left', user: current_user %>
+    </div>
+  </div>
+</div>

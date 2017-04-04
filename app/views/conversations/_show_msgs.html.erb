@@ -1,0 +1,3 @@
+<% @conversation.messages.try(:each) do |msg| %>
+  <%= render msg %>
+<% end %>

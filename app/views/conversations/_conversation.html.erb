@@ -1,0 +1,16 @@
+<div class="message">
+  <% msg = conversation.messages.order(created_at: :desc).first %>
+  <img src="<%= image_path user.dp.small %>" alt="" class="message-avatar">
+  <a href="<%= conversation_url(conversation) %>" class="message-subject" data-remote="true">
+    <% if msg %>
+        <%= msg.msg.truncate(10) %>
+    <% else %>
+      Start Messaging
+    <% end %>
+  </a>
+  <div class="message-description">
+    from <a href="<%= user_url(user) %>"><%= user.name %></a>
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    <%= time_ago_in_words msg.created_at if msg %>
+  </div> <!-- / .message-description -->
+</div> <!-- / .message -->

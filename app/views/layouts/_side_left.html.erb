@@ -1,0 +1,98 @@
+<div class="">
+  <% if current_user && current_user != user %>
+      <div class="col-md-6">
+        <div id="block-unblock">
+          <% if current_user.blocked?(user) %>
+              <a href="<%= block_url(current_user.blocks.find_by(blocked: user)) %>" data-method="delete" data-remote="true" class="btn btn-labeled btn-block btn-primary"><span class="btn-label"><i class="fa fa-ban"></i></span>Unblock</a>
+          <% else %>
+              <a id="modal-705473" href="#modal-container-705473" data-toggle="modal" class="btn btn-labeled btn-block btn-danger"><span class="btn-label"><i class="fa fa-ban"></i></span>Block</a>
+          <% end %>
+        </div>
+
+        <div class="modal fade" id="modal-container-705473" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  Block User
+                </h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'blocks/form', block: current_user.blocks.build(blocked_id: user.id) %>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <a id="report-user-modal-705473" href="#report-user-modal-container-705473" data-toggle="modal" class="btn btn-labeled btn-block btn-danger"><span class="btn-label"><i class="fa fa-ban"></i></span>Report</a>
+        <!--<a id="report-user" class="btn btn-labeled btn-block btn-danger"><span class="btn-label"><i class="fa fa-ban"></i></span>Report</a>-->
+
+        <div class="modal fade" id="report-user-modal-container-705473" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  Report User
+                </h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'reports/form', report: current_user.reports.build(reported_id: user.id) %>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <br><br>
+  <% end %>
+  <div class="panel profile-skills">
+    <div class="panel-heading">
+      <span class="panel-title">Top Trending Tags</span>
+    </div>
+    <div class="panel-body">
+
+      <div class="list-group">
+        <% Tag.get_all_top.first(10).each do |tag| %>
+            <p class="list-group-item"><strong><%= link_to '#'+tag.name, tags_path(tag.name) %></strong></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if current_user %>
+      <div class="panel">
+        <div class="panel-heading">
+          <span class="panel-title">Suggested</span>
+        </div>
+        <div class="list-group">
+          <div class="widget-followers" style="padding-right: 0px; padding-left: 40px; padding-top: 20px; max-width: 280px">
+            <% current_user.get_followable.first(5).try(:each) do |user| %>
+                <div class="follower ">
+                  <img src=<%= image_path user.dp.small %> alt="" class="follower-avatar img-circle">
+                  <div class="body">
+
+                    <a href="<%= user_url(user) %>" class="follower-name"><%= user.name %></a><br>
+                    <p class="follower-username">@<%= user.uname %></p>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+          <br><br>
+        </div>
+      </div>
+  <% end %>
+
+</div>
+

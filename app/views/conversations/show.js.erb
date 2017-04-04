@@ -1,0 +1,2 @@
+$('#messages-list').html('<%= j render 'conversations/show_msgs' %>');
+$('#send-message-form').html('<%= j render 'messages/form', message: @conversation.messages.build %>')

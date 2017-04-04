@@ -1,0 +1,1 @@
+$('#like-dislike-<%= @likeable.get_type.downcase %>-<%= @likeable.id %>').html(' <%= j render 'likes/like', likeable: current_user.likes.build(likeable: @likeable) %>');

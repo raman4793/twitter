@@ -1,0 +1,110 @@
+<div id="show-post-<%= micropost.id %>">
+  <div class="comment">
+    <img src=<%= image_path micropost.user.dp.small %> alt="" class="comment-avatar">
+    <div class="comment-body">
+      <div class="comment-text">
+        <div class="comment-heading">
+          <%= image_tag micropost.picture, class: 'img-responsive' %>
+          <a href="<%= user_url(micropost.user) %>" title=""><%= micropost.user.name %></a><span><%= time_ago_in_words micropost.created_at %></span>
+        </div>
+        <%= raw(render_with_tags(micropost.content).html_safe) %>
+      </div>
+      <div class="comment-footer">
+        <!--Here is the like dislike start-->
+
+        <div class="comment-actions">
+          <div id="like-dislike-micropost-<%= micropost.id %>">
+            <% if current_user!=nil %>
+
+                <% if current_user == micropost.user %>
+                    <span><a modal-edit-post href="#modal-container-edit-post" data-toggle="modal"><i class="fa fa-pencil"></i>Edit</a></span>
+                    <span><%= link_to(content_tag(:i, "  ", class:"fa fa-times")+"Remove", micropost_url(micropost), method: :delete, remote: true) %></span>
+                <% end %>
+
+                <% if current_user.likes?(micropost) %>
+                    <%= link_to(content_tag(:i, "  ", class:"fa fa-thumbs-o-down")+"", Like.get(current_user, micropost), method: :delete, class: 'button white', remote: true) %><a> <i class="fa fa-thumbs-o-up"><%= micropost.get_likes %> Likes</i></a>
+
+                <% else %>
+                    <%= render 'likes/like', likeable: current_user.likes.build(likeable: micropost) %>
+                <% end %>
+                <span class="pull-right"><span><%= time_ago_in_words micropost.created_at %></span></span>
+                <div id="comments-<%= micropost.id %>">
+                  <% micropost.comments.each do |comment| %>
+                      <%= render comment %>
+                  <% end %>
+                </div>
+                <%= render 'comments/form', comment: current_user.comments.build(micropost: micropost) %>
+            <% else %>
+                <span><i class="fa fa-thumbs-o-up"> </i> <%= micropost.likes.count %>  Likes</span>
+            <% end %>
+          </div>
+
+
+        </div>
+
+
+        <!--End LIKE Dislike-->
+        <!--<a href="#"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;&nbsp;-->
+        <!--<a href="#"><i class="fa fa-thumbs-o-down"></i></a>-->
+      </div>
+
+    </div> <!-- / .comment-body -->
+  </div> <!-- / .comment -->
+</div>
+<br>
+
+
+<!--Edit post dialog-->
+<div class="modal fade" id="modal-container-edit-post" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Modal title
+        </h4>
+      </div>
+      <div class="modal-body">
+        <%= render 'microposts/micropost_form', micropost: micropost %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+
+    <script type="application/javascript">
+      var emoji_config = {
+        at: ":",
+        data: <%= raw User.pluck(:name).compact.to_json %>,
+        headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+        insertTpl: ':${name}:',
+        delay: 400
+      };
+
+      var at_config = {
+        at: "@",
+        data: <%= raw User.pluck(:uname).compact.to_json %>,
+        headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+        insertTpl: '${name}',
+        displayTpl: "<li>${name}</li>",
+        limit: 200
+      };
+
+      $(function(){
+        $('.note-editable').atwho(at_config);
+      });
+
+      $('#micropost_content').on("inserted.atwho", function(event, li, query) {
+        console.log(li, "Selected ");
+      });
+
+      $('#new_micropost').submit(function(){ //listen for submit event
+
+      });
+    </script>
+
+  </div>
+
+</div>

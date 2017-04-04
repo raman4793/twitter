@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
+
+  <script>var init = [];</script>
+
+  <%= stylesheet_link_tag    'application', media: 'all',
+                             'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= render 'layouts/shim' %>
+</head>
+<body class="theme-purple-hills main-menu-animated page-profile">
+<div id="wrapper" class="cover">
+<div class="add-pad">
+  <%= render 'layouts/header' %>
+  <div class="container-fluid" style="padding-top: 50px">
+    <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+    <%= yield %>
+
+
+  </div>
+</div>
+</div>
+</body>
+</html>

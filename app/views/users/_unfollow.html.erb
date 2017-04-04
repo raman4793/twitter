@@ -1,0 +1,12 @@
+<%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
+             html: { method: :delete },
+             remote: true) do |f| %>
+    <%= button_tag(type: 'submit', class: "btn btn-success", id: "edit_relation_ship_#{current_user.active_relationships.find_by(followed_id: @user.id).id}") do %>
+        <i class="fa fa-check"></i>&nbsp;&nbsp;Following</a>&nbsp;&nbsp;
+    <% end %>
+
+
+
+<% end %>
+
+    <script></script>

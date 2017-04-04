@@ -1,0 +1,20 @@
+<%= form_for message, class: 'panel-footer chat-controls', remote: true do |f| %>
+    <div class="chat-controls-input">
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :conversation_id, value: message.conversation.id %>
+      <%= f.text_field :msg, class: 'form-control', rows: '1' %>
+    </div>
+    <%= f.submit 'Send' ,class: 'btn btn-primary chat-controls-btn', onclick: 'return clear()' %>
+<% end %>
+
+<!--<form class="panel-footer chat-controls">-->
+  <!--<div class="chat-controls-input">-->
+    <!--<textarea rows="1" class="form-control"></textarea>-->
+  <!--</div>-->
+  <!--<button class="btn btn-primary chat-controls-btn">Send</button>-->
+<!--</form>-->
+<script type="application/javascript">
+  var clear = function() {
+    alert('Testing');
+  };
+</script>

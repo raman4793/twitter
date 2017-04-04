@@ -1,0 +1,169 @@
+Main navigation
+-->
+<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+  <!-- Main menu toggle -->
+
+  <div class="navbar-inner">
+    <!-- Main navbar header -->
+    <div class="navbar-header">
+
+      <!-- Logo -->
+      <a href="<%= root_url %>" class="navbar-brand">
+        <div><img alt="Pixel Admin" src="<%= image_path 'main-navbar-logo.png' %>"></div>
+        μBlogger
+      </a>
+
+      <!-- Main navbar toggle -->
+
+    </div> <!-- / .navbar-header -->
+
+    <div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+      <div>
+        <ul class="nav navbar-nav">
+
+        </ul> <!-- / .navbar-nav -->
+
+        <div class="right clearfix">
+          <ul class="nav navbar-nav pull-right right-navbar-nav">
+
+            <!-- 3. $NAVBAR_ICON_BUTTONS =======================================================================
+
+                          Navbar Icon Buttons
+
+                          NOTE: .nav-icon-btn triggers a dropdown menu on desktop screens only. On small screens .nav-icon-btn acts like a hyperlink.
+
+                          Classes:
+                          * 'nav-icon-btn-info'
+                          * 'nav-icon-btn-success'
+                          * 'nav-icon-btn-warning'
+                          * 'nav-icon-btn-danger'
+            -->
+            <li class="centre">
+              <%= form_tag users_path, method: :get, class: 'navbar-form pull-left' do %>
+                  <%= text_field_tag :name, "", class: 'form-control', placeholder: 'Search' %>
+              <% end %>
+            </li>
+
+
+            <li>
+              <%= link_to 'Home', root_url %>
+            </li>
+
+            <li class="nav-icon-btn nav-icon-btn-success dropdown">
+              <a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
+                <!--<span class="label">10</span>-->
+                <i class="nav-icon fa fa-envelope"></i>
+                <span class="small-screen-text">Income messages</span>
+              </a>
+
+              <!-- MESSAGES -->
+
+
+
+              <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+                <div class="messages-list" id="main-navbar-messages">
+
+
+                  <% current_user.conversations.each do |conv| %>
+                    <% msg = conv.messages.first %>
+                    <% if conv.sender == current_user %>
+                      <% if conv.sender!=nil && conv.recipient!= nil %>
+                              <div class="message">
+                                <img src="<%= image_path conv.recipient.dp.small if conv.recipient%>" alt="" class="message-avatar">
+                                <a href="<%= conversations_url %>" class="message-subject">
+                                  <% if msg %>
+                                      <%= msg.msg.truncate(50) %>
+                                  <% else %>
+                                      Start Messaging
+                                  <% end %>
+                                </a>
+                                <div class="message-description">
+                                  from <%= link_to conv.recipient.name, user_url(conv.recipient) if conv.recipient%>
+                                  &nbsp;&nbsp;·&nbsp;&nbsp;
+                                  <%= time_ago_in_words msg.created_at if msg%>
+                                </div>
+                              </div> <!-- / .message -->
+                          <% else %>
+                              <div class="message">
+                                <img src="<%= image_path conv.sender.dp.small if conv.sender %>" alt="" class="message-avatar">
+                                <a href="<%= conversations_url %>" class="message-subject">
+                                  <% if msg %>
+                                      <%= msg.msg.truncate(50) %>
+                                  <% else %>
+                                      Start Messaging
+                                  <% end %>
+                                </a>
+                                <div class="message-description">
+                                  from <%= link_to conv.sender.name, user_url(conv.sender) if conv.sender%>
+                                  &nbsp;&nbsp;·&nbsp;&nbsp;
+                                  <%= time_ago_in_words msg.created_at if msg%>
+                                </div>
+                              </div> <!-- / .message -->
+                      <% end %>
+                    <% end %>
+                  <% end %>
+
+                </div> <!-- / .messages-list -->
+                <a href="<%= conversations_url %>" class="messages-link">MORE MESSAGES</a>
+              </div> <!-- / .dropdown-menu -->
+            </li>
+
+            <li class="nav-icon-btn nav-icon-btn-danger dropdown">
+              <a href="#notifications" class="dropdown-toggle" data-toggle="dropdown">
+                <!--<span class="label"><%= current_user.new_notifications.try(:count) %></span>-->
+                <i class="nav-icon fa fa-bullhorn"></i>
+                <span class="small-screen-text">Notifications</span>
+              </a>
+
+              <!-- NOTIFICATIONS -->
+
+
+
+              <div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
+                <div class="notifications-list" id="main-navbar-notifications">
+
+                  <% current_user.new_notifications.try(:each) do |notification| %>
+                    <%= render notification %>
+                  <% end %>
+
+                </div> <!-- / .notifications-list -->
+                <a href="<%= notifications_url %>" class="notifications-link">MORE NOTIFICATIONS</a>
+              </div> <!-- / .dropdown-menu -->
+            </li>
+
+
+            <!-- /3. $END_NAVBAR_ICON_BUTTONS -->
+
+
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+                <img src="<%= image_path current_user.dp %>" alt="">
+                <span><%= current_user.name %></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="<%= user_url(current_user) %>"><i class="dropdown-icon fa fa-home"></i>&nbsp;&nbsp;Profile</a></li>
+                <li><a href="<%= edit_user_url(current_user) %>"><i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Settings</a></li>
+                <li class="divider"></li>
+                <li><a data-method="delete" href="<%= logout_url %>"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+              </ul>
+            </li>
+          </ul> <!-- / .navbar-nav -->
+        </div> <!-- / .right -->
+      </div>
+    </div> <!-- / #main-navbar-collapse -->
+  </div> <!-- / .navbar-inner -->
+</div> <!-- / #main-navbar -->
+<!-- /2. $END_MAIN_NAVIGATION -->
+
+<!-- Javascript -->
+<script type="application/javascript">
+  $('#main-navbar-notifications').slimScroll({ height: 350 });
+</script>
+<!-- / Javascript -->
+
+<!-- Javascript -->
+<script>
+  $('#main-navbar-messages').slimScroll({ height: 350 });
+</script>
+<!-- / Javascript -->

@@ -1,0 +1,28 @@
+    var emoji_config = {
+      at: ":",
+      data: <%= raw User.pluck(:name).compact.to_json %>,
+      headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+      insertTpl: ':${name}:',
+      delay: 400
+    }
+
+    var at_config = {
+      at: "@",
+      data: <%= raw User.pluck(:name).compact.to_json %>,
+      headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+      insertTpl: '${name}',
+      displayTpl: "<li>${name} <small>${email}</small></li>",
+      limit: 200
+    }    
+
+$(function(){
+  $('#micropost_content').atwho(emoji_config);
+});
+
+$('#micropost_content').on("inserted.atwho", function(event, li, query) {
+    console.log(li, "Selected ");
+  });
+
+$('#new_micropost').submit(function(){ //listen for submit event
+	alert('Test')
+}); 

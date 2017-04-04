@@ -1,0 +1,6 @@
+<div class="notification">
+  <div class="notification-title"></div>
+  <div class="notification-description"><strong><%= link_to event.user.name, user_url(event.user) %></strong>: <%= event.msg %> <strong><%= link_to_event event %></strong>.</div>
+  <div class="notification-ago"><%= time_ago_in_words event.created_at %></div>
+  <div class="notification-icon fa fa-hdd-o bg-danger"></div>
+</div>

@@ -1,0 +1,1 @@
+$('#block-unblock').html('<a href="<%= block_url(current_user.blocks.find_by(blocked: @block.blocked)) %>" data-method="delete" data-remote="true" class="btn btn-labeled btn-block btn-primary"><span class="btn-label"><i class="fa fa-ban"></i></span>Unblock</a>');

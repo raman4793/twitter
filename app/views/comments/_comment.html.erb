@@ -1,0 +1,22 @@
+<div class="comment">
+  <img src=<%= image_path comment.user.dp %> alt="" class="comment-avatar">
+  <div class="comment-body">
+    <div class="comment-text">
+      <div class="comment-heading">
+        <a style="color: #2D96DF" href="<%= user_path(comment.user) %>" title=""><%= comment.user.name %></a><span><%= time_ago_in_words comment.created_at %></span>
+      </div>
+      <p style="color: #5F6A64">
+        <%= comment.msg %>
+      </p>
+    </div>
+    <div class="comment-footer">
+      <div id="like-dislike-comment-<%= comment.id %>">
+        <% if current_user.likes?(comment) %>
+            <%= link_to(content_tag(:i, "  ", class:"fa fa-thumbs-o-down")+"", Like.get(current_user, comment), method: :delete, class: 'button white', remote: true) %><a>  <i class="fa fa-thumbs-o-up"><%= comment.get_likes %> Likes</i></a>
+        <% else %>
+            <%= render 'likes/like', likeable: current_user.likes.build(likeable: comment) %>
+        <% end %>
+      </div>
+    </div>
+  </div> <!-- / .comment-body -->
+</div> <!-- / .comment -->

@@ -1,0 +1,27 @@
+<% if message.user == current_user %>
+    <div class="message right">
+      <img src="<%= image_path message.sender.dp.small %>" alt="" class="message-avatar">
+      <div class="message-body">
+        <div class="message-heading">
+          <a href="#" title=""><%= message.sender.name %></a> says:
+          <span class="pull-right"><%= time_ago_in_words message.created_at %></span>
+        </div>
+        <div class="message-text">
+          <%= message.msg %>
+        </div>
+      </div> <!-- / .message-body -->
+    </div>  <!-- / .message -->
+<% else %>
+    <div class="message">
+      <img src="<%= image_path message.recipient.dp.small %>" alt="" class="message-avatar">
+      <div class="message-body">
+        <div class="message-heading">
+          <a href="#" title=""><%= message.recipient.name %></a> says:
+          <span class="pull-right"><%= time_ago_in_words message.created_at %></span>
+        </div>
+        <div class="message-text">
+          <%= message.msg %>
+        </div>
+      </div> <!-- / .message-body -->
+    </div>  <!-- / .message -->
+<% end %>

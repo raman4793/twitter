@@ -1,0 +1,129 @@
+
+<div class="panel">
+  <div class="panel-heading">
+    <div class="panel-heading-controls">
+    </div> <!-- / .panel-heading-controls -->
+  </div>
+  <div class="panel-body no-padding no-border">
+    <!--<textarea class="form-control" id="summernote-example" rows="10"><p>Seasons <b>coming up</b></p></textarea>-->
+    <div>
+
+    </div>
+    <div>
+      <%= form_for(micropost, html: { multipart: true }, remote: true) do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+          <div class="field">
+            <%= f.text_area :content, placeholder: "Compose new micropost...", class: 'form-control', id: "summernote-example-#{micropost.id}", rows: 2 %>
+          </div>
+          <div>
+            <label id="character-limit-textarea-label"></label>
+          </div>
+          <br>
+          <%= f.submit "Post", class: "btn btn-primary pull-right" %>
+          <span class="picture">
+      <br>
+            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: '' %>
+  </span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div style="">
+
+</div>
+
+<script type="text/javascript">
+
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>
+
+<script type="application/javascript">
+  var emoji_config = {
+    at: ":",
+    data: <%= raw User.pluck(:uname).compact.to_json %>,
+    headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+    insertTpl: ':${name}:',
+    delay: 400
+  };
+
+//  var at_config = {
+//    at: "@",
+//    data: <%= raw User.pluck(:uname).compact.to_json %>,
+//    headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+//    insertTpl: '@${name}',
+//    displayTpl: "<li>@${name}</li>",
+//    limit: 200
+//  };
+  var test = {
+    at: "@",
+    data: <%= raw User.pluck(:uname).compact.to_json %>,
+    headerTpl: '<div class="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+    insertTpl: '${name}',
+    delay: 400
+  };
+
+  $(function(){
+    $('.note-editable').atwho(emoji_config);
+  });
+
+  $('#micropost_content').on("inserted.atwho", function(event, li, query) {
+    console.log(li, "Selected ");
+  });
+
+  $('#new_micropost').submit(function(){ //listen for submit event
+
+  });
+</script>
+
+
+
+
+<!-- 5. $SUMMERNOTE_WYSIWYG_EDITOR =================================================================
+
+		Summernote WYSIWYG-editor
+-->
+<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js)-->
+
+
+
+
+
+<!-- Javascript -->
+<script>
+  if (! $('html').hasClass('ie8')) {
+    $('#summernote-example-<%= micropost.id %>').summernote({
+
+      height: 200,
+      tabsize: 2,
+      codemirror: {
+        theme: 'monokai'
+      }
+
+    });
+  }
+
+  $('.note-toolbar .note-insert').remove();
+
+</script>
+<!-- / Javascript -->
+
+<!-- /5. $SUMMERNOTE_WYSIWYG_EDITOR -->
+<script type="text/css">
+  .note-editor .note-dropzone { opacity: 0 !important; }
+</script>
+
+<!--modal-container-edit-post-->
+
+<script type="application/javascript">
+  $('#new_micrpost').onsubmit = function () {
+    console.log('Posted');
+  }
+</script>
+

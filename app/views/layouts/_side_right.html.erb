@@ -1,0 +1,40 @@
+<div class="profile-block panel">
+  <div class="panel-heading">
+    <span class="panel-title"></span>
+  </div>
+  <div class="panel profile-photo">
+    <%= image_tag user.dp, class: 'img-circle'  %>
+  </div><br>
+  <span class="text-semibold"><%= user.name %></span><br>
+  <span class="">@<%= user.uname %></span><br><br>
+  <% if current_user != user && current_user!=nil %>
+      <%= render 'users/follow_form' %>
+      <br><br>
+  <% end %>
+</div>
+
+<div class="panel">
+  <div class="panel-heading">
+    <span class="panel-title">About me</span>
+  </div>
+  <div class="panel-body">
+    <%= user.description %>
+  </div>
+  <br>
+</div>
+
+<div class="panel">
+  <div class="panel-heading">
+    <span class="panel-title">Personel Details</span>
+  </div>
+  <div class="list-group">
+    <p class="list-group-item"><strong>Sex    : </strong> <%= user.sex %></p>
+    <p class="list-group-item"><strong>DOB    : </strong> <%= user.dob %></p>
+    <p class="list-group-item"><strong>Email  : </strong> <%= user.email %></p>
+    <p class="list-group-item"><strong>Country    : </strong> <%= user.country %></p>
+    <p class="list-group-item"><strong>State    : </strong> <%= user.state %></p>
+    <p class="list-group-item"><strong>City  : </strong> <%= user.city %></p>
+    <p class="list-group-item"><strong>Mobile  : </strong> <%= user.mobile %></p>
+  </div>
+  <br>
+</div>
