@@ -127,7 +127,7 @@ class User < ApplicationRecord
 
   def get_followable
     puts("Getting follow suggestions")
-    followings = self.followers.pluck(:id)
+    followings = self.following.pluck(:id)
     if followings.any?
     else
       followings = id
