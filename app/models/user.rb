@@ -136,12 +136,12 @@ class User < ApplicationRecord
   end
 
   def notifications
-    id = followers.pluck(:id)
+    id = following.pluck(:id)
     Event.where(user_id: id).order(created_at: :desc)
   end
 
   def new_notifications
-    id = followers.pluck(:id)
+    id = following.pluck(:id)
     Event.where("user_id IN (?) AND created_at >= ? ", id, last_logout_at).limit(20).order(created_at: :desc)
   end
 
