@@ -4,7 +4,10 @@
     <div class="comment-body">
       <div class="comment-text">
         <div class="comment-heading">
-          <%= image_tag micropost.picture, class: 'img-responsive' %>
+          <% if micropost.picture.file.nil? %>
+          <% else %>
+              <%= image_tag micropost.picture, class: 'img-responsive'  %>
+          <% end %>
           <a href="<%= user_url(micropost.user) %>" title=""><%= micropost.user.name %></a><span><%= time_ago_in_words micropost.created_at %></span>
         </div>
         <%= raw(render_with_tags(micropost.content).html_safe) %>
