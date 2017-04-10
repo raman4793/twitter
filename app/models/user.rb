@@ -141,8 +141,10 @@ class User < ApplicationRecord
   end
 
   def new_notifications
+    # id = following.pluck(:id)
+    # Event.where("user_id IN (?) AND created_at >= ? ", id, last_logout_at).limit(20).order(created_at: :desc)
     id = following.pluck(:id)
-    Event.where("user_id IN (?) AND created_at >= ? ", id, last_logout_at).limit(20).order(created_at: :desc)
+    Event.where(user_id: id).order(created_at: :desc).limit(20)
   end
 
   def get_conversations()

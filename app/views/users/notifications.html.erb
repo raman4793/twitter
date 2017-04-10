@@ -3,7 +3,7 @@
     <div class="col-md-3">
     </div>
     <% @notifications.try(:each) do |notification| %>
-        <div class="col-md-6 well">
+        <div class="col-md-6 panel">
           <% if notification.eventable_type=='Micropost' %>
               <p>
                 <%= notification.user.name %> <%= notification.msg %> <%= link_to 'μBlog', micropost_path(notification.eventable) %>

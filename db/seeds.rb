@@ -8,7 +8,7 @@ females = ['3.jpg', '5.jpg']
 
 User.create!(name:  Faker::Name.name,
              uname: Faker::Name.first_name,
-             email: "user@μblogger.com",
+             email: "user@blogger.com",
              password:              "123456",
              password_confirmation: "123456",
              admin:     false,
@@ -24,7 +24,7 @@ User.create!(name:  Faker::Name.name,
 
 99.times do |n|
   name  = Faker::Name.name
-  email = "user-#{n+1}@μblogger.com"
+  email = "user-#{n+1}@blogger.com"
   password = "123456"
   uname = Faker::Name.first_name+n.to_s
   sex = sexes[rand(0..1)]
