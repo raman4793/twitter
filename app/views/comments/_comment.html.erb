@@ -1,4 +1,4 @@
-<div class="comment">
+<div class="comment" id="show-comment-<%= comment.id %>">
   <img src=<%= image_path comment.user.dp.small %> alt="" class="comment-avatar">
   <div class="comment-body">
     <div class="comment-text">
@@ -10,7 +10,13 @@
       </p>
     </div>
     <div class="comment-footer">
+      <% if current_user == comment.user %>
+        <div class="controls">
+          <span><%= link_to(content_tag(:i, "  ", class:"fa fa-times")+"Remove", comment_url(comment), method: :delete, remote: true) %></span>
+        </div>
+      <% end %>
       <div id="like-dislike-comment-<%= comment.id %>">
+
         <% if current_user.likes?(comment) %>
             <%= link_to(content_tag(:i, "  ", class:"fa fa-thumbs-o-down")+"", Like.get(current_user, comment), method: :delete, class: 'button white', remote: true) %><a>  <i class="fa fa-thumbs-o-up"><%= comment.get_likes %> Likes</i></a>
         <% else %>
